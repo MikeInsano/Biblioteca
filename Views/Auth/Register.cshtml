@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Registro";
+}
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg rounded p-4" style="max-width: 400px; width: 100%;">
+        <div class="card-body">
+            <h3 class="text-center mb-4">
+                <i class="fa-solid fa-book me-2"></i> Registro - Biblioteca
+            </h3>
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="alert alert-danger text-center">@ViewBag.Error</div>
+            }
+            <form asp-action="Register" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nombre</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" name="Nombre" class="form-control" placeholder="Ingresa tu nombre" required />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-user-tag"></i></span>
+                        <input type="text" name="UserName" class="form-control" placeholder="Ingresa tu usuario" required />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" name="Password" class="form-control" placeholder="Ingresa tu contraseña" required />
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary rounded-pill shadow">
+                        <i class="fa-solid fa-user-plus me-2"></i> Registrarse
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .input-group-text {
+        background-color: #e9ecef;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>

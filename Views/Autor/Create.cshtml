@@ -1,0 +1,32 @@
+﻿@model BibliotecaBolonMiguel.Models.Domain.Autor
+
+@{
+    ViewData["Title"] = "Crear Autor";
+}
+
+<h2>Crear Autor</h2>
+
+<form asp-action="Create" asp-controller="Autor" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Biografia" class="form-label">Biografía</label>
+        <textarea asp-for="Biografia" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+        <input asp-for="FechaNacimiento" type="date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Foto</label>
+        <input type="file" name="foto" class="form-control" accept="image/*" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+

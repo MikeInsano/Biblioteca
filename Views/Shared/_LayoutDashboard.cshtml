@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BibliotecaBolonMiguel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BibliotecaBolonMiguel.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="d-flex">
+        <div class="bg-light border-end" id="sidebar-wrapper" style="width: 250px; min-height: 100vh;">
+            <div class="sidebar-heading text-center py-4">Biblioteca</div>
+            <div class="list-group list-group-flush">
+                @if (User.Identity.IsAuthenticated) {
+                    @if (User.IsInRole("Admin")){
+                        <div>
+                            <a href="@Url.Action("Index", "User")" class="list-group-item list-group-item-action">Usuarios</a>
+                            <a href="@Url.Action("Index", "Rol")" class="list-group-item list-group-item-action">Rol</a>
+                            <a href="@Url.Action("Index", "Genero")" class="list-group-item list-group-item-action">Generos</a>
+                            <a href="#" class="list-group-item list-group-item-action">Libros</a>
+                            <a href="@Url.Action("Index", "Editorial")" class="list-group-item list-group-item-action">Editorial</a>
+                            <a href="@Url.Action("Index", "Autor")" class="list-group-item list-group-item-action">Autores</a>
+                        </div>
+                        <div class="nav-item">
+                            <form method="post" asp-controller="Auth" asp-action="Logout">
+                                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
+                            </form>
+                        </div>
+                    }
+                    @if (User.IsInRole("Usuario")) {
+                        
+                    }
+                }
+            </div>
+        </div>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @RenderSection("Styles", required: false)
+</body>
+</html>

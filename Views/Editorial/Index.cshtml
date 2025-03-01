@@ -1,0 +1,60 @@
+﻿@model List<BibliotecaBolonMiguel.Models.Domain.Editorial>
+@{
+    Layout = "_LayoutDashboard";
+}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-auto ms-auto">
+            <a asp-action="Crear" class="btn btn-success btn-lg shadow rounded-pill">
+                <i class="fa-solid fa-plus me-2"></i> Nuevo Editorial
+            </a>
+        </div>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom">
+            <h3 class="mb-0"><i class="fa-solid fa-users me-2"></i> Lista de Editoriales</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-borderless mb-0" id="tblEditorials">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-dark fw-bold">Nombre</th>
+                                <th class="text-dark fw-bold">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rol in Model)
+                            {
+                                <tr class="border-bottom hover-soft">
+                                    <td>@rol.Nombre</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@rol.PkEditorial" class="btn btn-link text-primary btn-sm">
+                                            <i class="fa-solid fa-pen me-1"></i> Editar
+                                        </a>
+                                        <a class="btn btn-link text-danger btn-sm">
+                                            <i class="fa-solid fa-trash me-1"></i> Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <p class="text-muted fs-5"><i class="fa-solid fa-info-circle me-2"></i> No hay registros disponibles.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .bg-light {
+        background-color: #e9ecef !important;
+    }
+</style>

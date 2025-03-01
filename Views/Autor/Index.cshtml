@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BibliotecaBolonMiguel.Models.Domain.Autor>
+
+@{
+    ViewData["Title"] = "Lista de Autores";
+}
+
+<h2>Lista de Autores</h2>
+
+<a asp-action="Create" class="btn btn-primary">Agregar Autor</a>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Biografía</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Foto</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var autor in Model)
+        {
+            <tr>
+                <td>@autor.Nombre</td>
+                <td>@autor.Biografia</td>
+                <td>@autor.FechaNacimiento.ToShortDateString()</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(autor.FotoUrl))
+                    {
+                        <img src="@autor.FotoUrl" alt="Foto de @autor.Nombre" width="100">
+                    }
+                    else
+                    {
+                        <span>Sin foto</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@autor.PkAutor" class="btn btn-warning btn-sm">Editar</a>
+                    <button class="btn btn-danger" onclick="eliminarAutor(@autor.PkAutor)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function eliminarAutor(id) {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Esta acción no se puede deshacer",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Sí, eliminar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/Autor/Delete/${id}`, { method: "POST" })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire("Eliminado", "El autor ha sido eliminado.", "success")
+                                    .then(() => location.reload());
+                            } else {
+                                Swal.fire("Error", "No se pudo eliminar el autor.", "error");
+                            }
+                        });
+                }
+            });
+        }
+    </script>
+}

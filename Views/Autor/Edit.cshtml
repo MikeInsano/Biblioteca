@@ -1,0 +1,55 @@
+﻿@model BibliotecaBolonMiguel.Models.Domain.Autor
+
+@{
+    ViewData["Title"] = "Editar Autor";
+}
+
+<h2>Editar Autor</h2>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="PkAutor" />
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Biografia" class="form-label">Biografía</label>
+        <textarea asp-for="Biografia" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+        <input asp-for="FechaNacimiento" type="date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Foto Actual</label><br>
+        <img src="@Model.FotoUrl" id="previewImage" alt="Foto actual" width="100" class="mb-2" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Actualizar Foto</label>
+        <input type="file" name="foto" class="form-control" accept="image/*" onchange="previewFile(event)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <script>
+        function previewFile(event) {
+            const preview = document.getElementById('previewImage');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+}
