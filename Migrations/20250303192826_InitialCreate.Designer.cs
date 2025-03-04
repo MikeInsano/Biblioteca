@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BibliotecaBolonMiguel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250222144745_Autores")]
-    partial class Autores
+    [Migration("20250303192826_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,6 @@ namespace BibliotecaBolonMiguel.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FotoUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
@@ -51,6 +50,23 @@ namespace BibliotecaBolonMiguel.Migrations
                     b.HasKey("PkAutor");
 
                     b.ToTable("Autores");
+                });
+
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Editorial", b =>
+                {
+                    b.Property<int>("PkEditorial")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PkEditorial"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PkEditorial");
+
+                    b.ToTable("Editorials");
                 });
 
             modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Genero", b =>
@@ -68,6 +84,71 @@ namespace BibliotecaBolonMiguel.Migrations
                     b.HasKey("PkGenero");
 
                     b.ToTable("Generos");
+                });
+
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Libro", b =>
+                {
+                    b.Property<int>("PkLibro")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PkLibro"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaPublicacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FotoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Idioma")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Isbn10")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Isbn13")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenLibrary")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Paginas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PkAutor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PkEditorial")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PkGenero")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PkLibro");
+
+                    b.HasIndex("PkAutor");
+
+                    b.HasIndex("PkEditorial");
+
+                    b.HasIndex("PkGenero");
+
+                    b.ToTable("Libros");
                 });
 
             modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Rol", b =>
@@ -134,6 +215,33 @@ namespace BibliotecaBolonMiguel.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Libro", b =>
+                {
+                    b.HasOne("BibliotecaBolonMiguel.Models.Domain.Autor", "Autor")
+                        .WithMany("Libros")
+                        .HasForeignKey("PkAutor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BibliotecaBolonMiguel.Models.Domain.Editorial", "Editorial")
+                        .WithMany("Libros")
+                        .HasForeignKey("PkEditorial")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BibliotecaBolonMiguel.Models.Domain.Genero", "Genero")
+                        .WithMany("Libros")
+                        .HasForeignKey("PkGenero")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autor");
+
+                    b.Navigation("Editorial");
+
+                    b.Navigation("Genero");
+                });
+
             modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Usuario", b =>
                 {
                     b.HasOne("BibliotecaBolonMiguel.Models.Domain.Rol", "Roles")
@@ -143,6 +251,21 @@ namespace BibliotecaBolonMiguel.Migrations
                         .IsRequired();
 
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Autor", b =>
+                {
+                    b.Navigation("Libros");
+                });
+
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Editorial", b =>
+                {
+                    b.Navigation("Libros");
+                });
+
+            modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Genero", b =>
+                {
+                    b.Navigation("Libros");
                 });
 #pragma warning restore 612, 618
         }

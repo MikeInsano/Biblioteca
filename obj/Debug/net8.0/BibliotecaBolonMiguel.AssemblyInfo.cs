@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BibliotecaBolonMiguel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b91086712f6894ca92981e7d05b97762456054e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1677c15fa7dd1ffd03bda35506411c6c0ee3ed34")]
 [assembly: System.Reflection.AssemblyProductAttribute("BibliotecaBolonMiguel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BibliotecaBolonMiguel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

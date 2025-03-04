@@ -10,5 +10,6 @@ namespace BibliotecaBolonMiguel.Models.Domain
         public string Biografia { get; set; }
         public string? FotoUrl { get; set; }
         public DateTime FechaNacimiento { get; set; }
+        public Libro? Libro { get; set; }
     }
 }

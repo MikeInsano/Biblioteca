@@ -1,0 +1,84 @@
+﻿@model IEnumerable<BibliotecaBolonMiguel.Models.Domain.Libro>
+@{
+    Layout = "_LayoutDashboard";
+}
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-auto ms-auto">
+            <a asp-action="Crear" asp-controller="Libro" class="btn btn-success btn-lg shadow rounded-pill">
+                <i class="fa-solid fa-plus me-2"></i> Nuevo Libro
+            </a>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom">
+            <h3 class="mb-0"><i class="fa-solid fa-book me-2"></i> Lista de Libros</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-borderless mb-0" id="tblLibros">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-dark fw-bold">Imagen</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.Titulo)</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.Autor)</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.Editorial)</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.Genero)</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.FechaPublicacion)</th>
+                                <th class="text-dark fw-bold">@Html.DisplayNameFor(x => x.Paginas)</th>
+                                <th class="text-dark fw-bold">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="border-bottom hover-soft">
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.FotoUrl))
+                                        {
+                                            <img src="@item.FotoUrl" alt="Foto del libro" class="img-thumbnail" style="width: 100px; height: auto;" />
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin imagen</span>
+                                        }
+                                    </td>
+                                    <td>@Html.DisplayFor(x => item.Titulo)</td>
+                                    <td>@Html.DisplayFor(x => item.Autor.Nombre)</td>
+                                    <td>@Html.DisplayFor(x => item.Editorial.Nombre)</td>
+                                    <td>@Html.DisplayFor(x => item.Genero.Nombre)</td>
+                                    <td>@item.FechaPublicacion.ToShortDateString()</td>
+                                    <td>@Html.DisplayFor(x => item.Paginas)</td>
+                                    <td>
+                                        <a class="btn btn-link text-primary btn-sm" asp-action="Edit" asp-route-id="@item.PkLibro">
+                                            <i class="fa-solid fa-pen me-1"></i> Editar
+                                        </a>
+                                        <button class="btn btn-link text-danger btn-sm eliminar-libro" data-id="@item.PkLibro">
+                                            <i class="fa-solid fa-trash me-1"></i> Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <p class="text-muted fs-5"><i class="fa-solid fa-info-circle me-2"></i> No hay registros disponibles.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-light {
+        background-color: #e9ecef !important;
+    }
+</style>
+                       

@@ -7,5 +7,6 @@ namespace BibliotecaBolonMiguel.Models.Domain
         [Key]
         public int PkGenero { get; set; }
         public string Nombre { get; set; }
+        public Libro? Libro { get; set; }
     }
 }

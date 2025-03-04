@@ -9,23 +9,26 @@ namespace BibliotecaBolonMiguel.Models.Domain
         public int PkLibro { get; set; }
         public string Titulo { get; set; }
 
-        [ForeignKey("Autores")]
-        public int PkAutor { get; set; }
-        public Autor Autores { get; set; }
+        [ForeignKey("Autor")]
+        public int? PkAutor { get; set; }
+        public Autor? Autor { get; set; }
 
         public string Descripcion { get; set; }
-        public string Editorial { get; set; }
 
-        [ForeignKey("Generos")]
-        public int PkGenero { get; set; }
-        public Genero Genero { get; set; }
+        [ForeignKey("Editorial")]
+        public int? PkEditorial { get; set; }
+        public Editorial? Editorial { get; set; }
+
+        [ForeignKey("Genero")]
+        public int? PkGenero { get; set; }
+        public Genero? Genero { get; set; }
 
         public DateTime FechaPublicacion { get; set; }
-        public string Imagen { get; set; }    
+        public string? FotoUrl { get; set; }    
         public int Paginas { get; set; }
         public string OpenLibrary { get; set; }
-        public int Isbn10 { get; set; }
-        public int Isbn13 { get; set; }
+        public string Isbn10 { get; set; }
+        public string Isbn13 { get; set; }
         public string WorkId { get; set; }
         public string Idioma { get; set; }
     }

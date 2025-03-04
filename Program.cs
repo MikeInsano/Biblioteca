@@ -38,6 +38,7 @@ builder.Services.AddScoped<IRolServices, RolServices>();
 builder.Services.AddScoped<IGeneroServices, GeneroServices>();
 builder.Services.AddScoped<IAutorServices, AutorServices>();
 builder.Services.AddScoped<IEditorialServices, EditorialServices>();    
+builder.Services.AddScoped<ILibroServices, LibroServices>();
 
 var app = builder.Build();
 

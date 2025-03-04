@@ -4,6 +4,7 @@ using BibliotecaBolonMiguel.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BibliotecaBolonMiguel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250303195408_UpdateAutorLibroRelation")]
+    partial class UpdateAutorLibroRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,13 +123,13 @@ namespace BibliotecaBolonMiguel.Migrations
                     b.Property<int>("Paginas")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PkAutor")
+                    b.Property<int>("PkAutor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PkEditorial")
+                    b.Property<int>("PkEditorial")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PkGenero")
+                    b.Property<int>("PkGenero")
                         .HasColumnType("int");
 
                     b.Property<string>("Titulo")
@@ -140,16 +143,11 @@ namespace BibliotecaBolonMiguel.Migrations
                     b.HasKey("PkLibro");
 
                     b.HasIndex("PkAutor")
-                        .IsUnique()
-                        .HasFilter("[PkAutor] IS NOT NULL");
+                        .IsUnique();
 
-                    b.HasIndex("PkEditorial")
-                        .IsUnique()
-                        .HasFilter("[PkEditorial] IS NOT NULL");
+                    b.HasIndex("PkEditorial");
 
-                    b.HasIndex("PkGenero")
-                        .IsUnique()
-                        .HasFilter("[PkGenero] IS NOT NULL");
+                    b.HasIndex("PkGenero");
 
                     b.ToTable("Libros");
                 });
@@ -222,15 +220,21 @@ namespace BibliotecaBolonMiguel.Migrations
                 {
                     b.HasOne("BibliotecaBolonMiguel.Models.Domain.Autor", "Autor")
                         .WithOne("Libro")
-                        .HasForeignKey("BibliotecaBolonMiguel.Models.Domain.Libro", "PkAutor");
+                        .HasForeignKey("BibliotecaBolonMiguel.Models.Domain.Libro", "PkAutor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BibliotecaBolonMiguel.Models.Domain.Editorial", "Editorial")
-                        .WithOne("Libro")
-                        .HasForeignKey("BibliotecaBolonMiguel.Models.Domain.Libro", "PkEditorial");
+                        .WithMany("Libros")
+                        .HasForeignKey("PkEditorial")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BibliotecaBolonMiguel.Models.Domain.Genero", "Genero")
-                        .WithOne("Libro")
-                        .HasForeignKey("BibliotecaBolonMiguel.Models.Domain.Libro", "PkGenero");
+                        .WithMany("Libros")
+                        .HasForeignKey("PkGenero")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Autor");
 
@@ -257,12 +261,12 @@ namespace BibliotecaBolonMiguel.Migrations
 
             modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Editorial", b =>
                 {
-                    b.Navigation("Libro");
+                    b.Navigation("Libros");
                 });
 
             modelBuilder.Entity("BibliotecaBolonMiguel.Models.Domain.Genero", b =>
                 {
-                    b.Navigation("Libro");
+                    b.Navigation("Libros");
                 });
 #pragma warning restore 612, 618
         }

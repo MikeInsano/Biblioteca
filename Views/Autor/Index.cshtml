@@ -1,72 +1,98 @@
 ﻿@model IEnumerable<BibliotecaBolonMiguel.Models.Domain.Autor>
 
 @{
-    ViewData["Title"] = "Lista de Autores";
+    Layout = "_LayoutDashboard";
 }
 
-<h2>Lista de Autores</h2>
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-auto ms-auto">
+            <a asp-action="Create" class="btn btn-success btn-lg shadow rounded-pill">
+                <i class="fa-solid fa-plus me-2"></i> Nuevo Autor
+            </a>
+        </div>
+    </div>
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom">
+            <h3 class="mb-0"><i class="fa-solid fa-users me-2"></i> Lista de Autores</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-borderless mb-0" id="tblAutores">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-dark fw-bold">Nombre</th>
+                                <th class="text-dark fw-bold">Biografía</th>
+                                <th class="text-dark fw-bold">Fecha de Nacimiento</th>
+                                <th class="text-dark fw-bold">Foto</th>
+                                <th class="text-dark fw-bold">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var autor in Model)
+                            {
+                                <tr class="border-bottom hover-soft">
+                                    <td>@autor.Nombre</td>
+                                    <td>@autor.Biografia</td>
+                                    <td>@autor.FechaNacimiento.ToShortDateString()</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(autor.FotoUrl))
+                                        {
+                                            <img src="@autor.FotoUrl" alt="Foto de @autor.Nombre" width="100" class="rounded">
+                                        }
+                                        else
+                                        {
+                                            <span>Sin foto</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@autor.PkAutor" class="btn btn-link text-primary btn-sm">
+                                            <i class="fa-solid fa-pen me-1"></i> Editar
+                                        </a>
+                                        <a onclick="confirmDelete(@autor.PkAutor)" class="btn btn-link text-danger btn-sm">
+                                            <i class="fa-solid fa-trash me-1"></i> Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="text-center p-5">
+                        <p class="text-muted fs-5"><i class="fa-solid fa-info-circle me-2"></i> No hay registros disponibles.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
-<a asp-action="Create" class="btn btn-primary">Agregar Autor</a>
+<style>
+    .bg-light {
+        background-color: #e9ecef !important;
+    }
+</style>
 
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Biografía</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Foto</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var autor in Model)
-        {
-            <tr>
-                <td>@autor.Nombre</td>
-                <td>@autor.Biografia</td>
-                <td>@autor.FechaNacimiento.ToShortDateString()</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(autor.FotoUrl))
-                    {
-                        <img src="@autor.FotoUrl" alt="Foto de @autor.Nombre" width="100">
-                    }
-                    else
-                    {
-                        <span>Sin foto</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@autor.PkAutor" class="btn btn-warning btn-sm">Editar</a>
-                    <button class="btn btn-danger" onclick="eliminarAutor(@autor.PkAutor)">Eliminar</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function eliminarAutor(id) {
+        function confirmDelete(id) {
             Swal.fire({
                 title: "¿Estás seguro?",
-                text: "Esta acción no se puede deshacer",
+                text: "No podrás revertir esta acción.",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
                 cancelButtonColor: "#3085d6",
-                confirmButtonText: "Sí, eliminar"
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`/Autor/Delete/${id}`, { method: "POST" })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                Swal.fire("Eliminado", "El autor ha sido eliminado.", "success")
-                                    .then(() => location.reload());
-                            } else {
-                                Swal.fire("Error", "No se pudo eliminar el autor.", "error");
-                            }
-                        });
+                    window.location.href = "/Autor/DeleteConfirmed/" + id;
                 }
             });
         }

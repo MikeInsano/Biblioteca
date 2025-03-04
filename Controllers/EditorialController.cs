@@ -51,5 +51,27 @@ namespace BibliotecaBolonMiguel.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var result = _editorialServices.GetEditorialById(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var result = _editorialServices.DeleteEditorial(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

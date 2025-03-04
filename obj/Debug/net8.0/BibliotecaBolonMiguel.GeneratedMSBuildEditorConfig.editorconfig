@@ -48,6 +48,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0b3JcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Editorial/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yaWFsXENyZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Editorial/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yaWFsXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Editorial/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWRpdG9yaWFsXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +78,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Libro/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlicm9cQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Libro/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlicm9cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Libro/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGlicm9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/josef/source/repos/BibliotecaBolonMiguel/BibliotecaBolonMiguel/Views/Rol/Crear.cshtml]
